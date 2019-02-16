@@ -15,6 +15,7 @@
         <module>guns-rest</module>
         <module>guns-generator</module>
         <module>guns-api</module>
+        <module>guns-user</module>
 
     </modules>
 
