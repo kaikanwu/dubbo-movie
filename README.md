@@ -1,8 +1,12 @@
 
 
-> A movie site based on dubbo and SpringBoot
+> A movie site
 
-dubbo
-SpringBoot
-guns
-maven
+back-end:
+            dubbo
+            SpringBoot
+            guns
+            maven
+
+front-end: 
+            vue.js
