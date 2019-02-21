@@ -4,7 +4,7 @@ public interface UserAPI {
 
 
     // 登陆接口
-    boolean login(String username, String password);
+    int login(String username, String password);
 
     // 注册接口
     boolean register(UserModel userModel);

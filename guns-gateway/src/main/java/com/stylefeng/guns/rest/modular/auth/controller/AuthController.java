@@ -8,6 +8,7 @@ import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthRequest;
 import com.stylefeng.guns.rest.modular.auth.controller.dto.AuthResponse;
 import com.stylefeng.guns.rest.modular.auth.util.JwtTokenUtil;
 import com.stylefeng.guns.rest.modular.auth.validator.IReqValidator;
+import com.stylefeng.guns.rest.modular.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +28,6 @@ public class AuthController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Resource(name = "simpleValidator")
-    private IReqValidator reqValidator;
-
-
-
 
 
     @Reference(interfaceClass = UserAPI.class)
@@ -40,19 +36,26 @@ public class AuthController {
 
 
     @RequestMapping(value = "${jwt.auth-path}")
-    public ResponseEntity<?> createAuthenticationToken(AuthRequest authRequest) {
+    public ResponseVO createAuthenticationToken(AuthRequest authRequest) {
 
+        // 删除 guns 自带的 username, password 验证机制，使用自己写的
+        boolean validate = true;
+        int userId = userAPI.login(authRequest.getUserName(), authRequest.getPassword());
 
-        userAPI.login(authRequest.getUserName(), authRequest.getPassword());
-
-        boolean validate = reqValidator.validate(authRequest);
+        if (userId == 0) {
+            validate = false;
+        }
 
         if (validate) {
+            // 生成 randomKey 和 token
             final String randomKey = jwtTokenUtil.getRandomKey();
-            final String token = jwtTokenUtil.generateToken(authRequest.getUserName(), randomKey);
-            return ResponseEntity.ok(new AuthResponse(token, randomKey));
+            final String token = jwtTokenUtil.generateToken("" + userId, randomKey);
+            // 返回值：成功
+            return ResponseVO.success(new AuthResponse(token, randomKey));
+
         } else {
-            throw new GunsException(BizExceptionEnum.AUTH_REQUEST_ERROR);
+            // 业务异常
+            return ResponseVO.serviceFail("用户名或者密码错误");
         }
     }
 }
