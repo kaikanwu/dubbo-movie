@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 只用来封装部分用户信息，用于注册时候使用。
  *
- *  Serializable： 这个类会在不同模块间传输，所以需要继承这个接口
+ *  Why Serializable?  -> 这个类会在不同模块间传输，所以需要继承这个接口
  */
 public class UserModel implements Serializable {
 

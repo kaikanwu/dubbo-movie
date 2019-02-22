@@ -1,5 +1,10 @@
 package com.stylefeng.guns.rest.modular.vo;
 
+
+/**
+ *  此类负责登陆功能的返回部分
+ * @param <M>
+ */
 public class ResponseVO<M> {
 
     // 返回的状态码， 0: 成功， 1：失败，999：返回异常
