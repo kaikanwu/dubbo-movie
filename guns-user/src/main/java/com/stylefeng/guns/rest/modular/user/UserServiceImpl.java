@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Service(interfaceClass = UserAPI.class)
-public class UserImpl implements UserAPI {
-
+public class UserServiceImpl implements UserAPI {
 
     @Override
     public int login(String username, String password) {
