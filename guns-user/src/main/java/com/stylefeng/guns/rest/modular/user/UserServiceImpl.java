@@ -102,9 +102,35 @@ public class UserServiceImpl implements UserAPI {
         }
     }
 
+
+    private UserInfoModel do2UserInfo(MoocUserT moocUserT) {
+        UserInfoModel userInfoModel = new UserInfoModel();
+        // 添加属性
+        userInfoModel.setUsername(moocUserT.getUserName());
+        userInfoModel.setSex(moocUserT.getUserSex());
+        userInfoModel.setPhone(moocUserT.getUserPhone());
+        userInfoModel.setNickname(moocUserT.getNickName());
+        userInfoModel.setLifeState(moocUserT.getLifeState());
+        userInfoModel.setHeadAddress(moocUserT.getHeadUrl());
+        userInfoModel.setEmail(moocUserT.getEmail());
+        userInfoModel.setBirthday(moocUserT.getBirthday());
+        userInfoModel.setBiography(moocUserT.getBiography());
+        userInfoModel.setAddress(moocUserT.getAddress());
+        // 注意这里需要添加 getTime()，来转换格式
+        userInfoModel.setUpdateTime(moocUserT.getUpdateTime().getTime());
+        userInfoModel.setCreateTime(moocUserT.getBeginTime().getTime());
+        return userInfoModel;
+    }
+
     @Override
     public UserInfoModel getUserInfo(int uuid) {
-        return null;
+
+        // 1. 根据主键（uuid） 查询用户信息， uuid -> MoocUserT
+        MoocUserT moocUserT = moocUserTMapper.selectById(uuid);
+        // 2. 将 MoocUserT 转换为 UserInfoModel
+        UserInfoModel  userInfoModel = do2UserInfo(moocUserT);
+        // 3. 返回 UserInfoModel
+        return userInfoModel;
     }
 
     @Override
