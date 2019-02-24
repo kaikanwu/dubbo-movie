@@ -6,7 +6,8 @@ import java.util.Date;
  * 保存用户信息相关的内容，用于后期用户修改
  */
 public class UserInfoModel {
-    
+
+    private  Integer uuid;
     private String username;
     private String nickname;
     private String email;
@@ -20,6 +21,14 @@ public class UserInfoModel {
     private long createTime;
     private long updateTime;
 
+
+    public Integer getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(Integer uuid) {
+        this.uuid = uuid;
+    }
 
     public String getUsername() {
         return username;

@@ -11,6 +11,8 @@ import com.stylefeng.guns.rest.common.persistence.model.MoocUserT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+
 @Component
 @Service(interfaceClass = UserAPI.class)
 public class UserServiceImpl implements UserAPI {
@@ -106,6 +108,7 @@ public class UserServiceImpl implements UserAPI {
     private UserInfoModel do2UserInfo(MoocUserT moocUserT) {
         UserInfoModel userInfoModel = new UserInfoModel();
         // 添加属性
+        userInfoModel.setUuid(moocUserT.getUuid());
         userInfoModel.setUsername(moocUserT.getUserName());
         userInfoModel.setSex(moocUserT.getUserSex());
         userInfoModel.setPhone(moocUserT.getUserPhone());
@@ -122,6 +125,11 @@ public class UserServiceImpl implements UserAPI {
         return userInfoModel;
     }
 
+    /**
+     * 查询用户信息
+     * @param uuid 唯一 id
+     * @return UserInfoModel
+     */
     @Override
     public UserInfoModel getUserInfo(int uuid) {
 
@@ -133,8 +141,46 @@ public class UserServiceImpl implements UserAPI {
         return userInfoModel;
     }
 
+
+    private Date time2Date(long time) {
+        Date date = new Date(time);
+        return date;
+    }
     @Override
     public UserInfoModel updateUserInfo(UserInfoModel userInfoModel) {
-        return null;
+
+        // 1. 将传入的数据转换为 MoocUserT
+        // 1. 默认账号密码不能被修改
+
+        MoocUserT moocUserT = new MoocUserT();
+        moocUserT.setUuid(userInfoModel.getUuid());
+        moocUserT.setUserSex(userInfoModel.getSex());
+        moocUserT.setUpdateTime(time2Date(System.currentTimeMillis()));
+        moocUserT.setNickName(userInfoModel.getNickname());
+        moocUserT.setLifeState(userInfoModel.getLifeState());
+        moocUserT.setHeadUrl(userInfoModel.getHeadAddress());
+        moocUserT.setBirthday(userInfoModel.getBirthday());
+        moocUserT.setBiography(userInfoModel.getBiography());
+        moocUserT.setBeginTime(time2Date(userInfoModel.getCreateTime()));
+        moocUserT.setAddress(userInfoModel.getAddress());
+        moocUserT.setEmail(userInfoModel.getEmail());
+        moocUserT.setUserPhone(userInfoModel.getPhone());
+
+        // 2. 将数据数据存入数据库
+        Integer isSuccess = moocUserTMapper.updateById(moocUserT);
+        if (isSuccess > 0) {
+
+            // 3. 根据 ID  将用户信息查询出来
+            UserInfoModel updatedUserInfo = getUserInfo(moocUserT.getUuid());
+            // 4. 将更新后用户信息返回给前端 （通过这个过程来保证前端数据和数据库的数据一致）
+            return updatedUserInfo;
+
+
+        }else {
+            // 没有成功，则将原来的内容返回
+            return userInfoModel;
+        }
+
+
     }
 }
