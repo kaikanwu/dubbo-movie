@@ -23,7 +23,7 @@ public class CurrentUser {
      * 获取用户的 ID
      * @return
      */
-    public static String getCurrentUser() {
+    public static String getCurrentUserId() {
         return threadLocal.get();
     }
 
