@@ -2,7 +2,8 @@ package com.stylefeng.guns.api.user;
 
 import java.io.Serializable;
 
-/**用于注册时候使用。
+/**
+ * 用于注册时候使用。
  * 只用来封装部分用户信息，
  *
  *  Why Serializable?  -> 这个类会在不同模块间传输，所以需要继承这个接口

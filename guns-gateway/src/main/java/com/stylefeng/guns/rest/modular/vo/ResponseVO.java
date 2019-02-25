@@ -2,7 +2,7 @@ package com.stylefeng.guns.rest.modular.vo;
 
 
 /**
- *  此类负责登陆功能的返回部分
+ *  此类负责登陆、注册功能的返回部分
  * @param <M>
  */
 public class ResponseVO<M> {
@@ -26,10 +26,24 @@ public class ResponseVO<M> {
      */
     public static <M> ResponseVO success(M m) {
 
-
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(0);
         responseVO.setData(m);
+
+        return responseVO;
+    }
+
+    /**
+     *  注册成功时，调用的方法
+     * @param msg
+     * @param <M>
+     * @return
+     */
+    public static <M> ResponseVO success(String msg) {
+
+        ResponseVO responseVO = new ResponseVO();
+        responseVO.setStatus(0);
+        responseVO.setMsg(msg);
 
         return responseVO;
     }
