@@ -1,7 +1,5 @@
 package com.stylefeng.guns.rest.common;
 
-import com.stylefeng.guns.api.user.UserInfoModel;
-
 /**
  *  1. 使用 ThreadLocal 来存储 UserInfo；但是不推荐使用，因为会在每个线程中都创建，如果 ThreadLocal 中的数据量很大，就会影响性能
  *  2. 这里使用 UserId 来代表用户信息
