@@ -59,7 +59,7 @@ public class ResponseVO<M> {
 
 
         ResponseVO responseVO = new ResponseVO();
-        responseVO.setStatus(0);
+        responseVO.setStatus(1);
         responseVO.setMsg(msg);
 
         return responseVO;

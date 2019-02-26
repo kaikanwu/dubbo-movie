@@ -1,13 +1,14 @@
 package com.stylefeng.guns.api.user;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 保存用户信息相关的内容，用于后期用户修改
  */
-public class UserInfoModel {
+public class UserInfoModel implements Serializable {
 
-    private  Integer uuid;
+    private Integer uuid;
     private String username;
     private String nickname;
     private String email;

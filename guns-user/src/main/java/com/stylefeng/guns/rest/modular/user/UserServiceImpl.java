@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserAPI {
         userInfoModel.setBiography(moocUserT.getBiography());
         userInfoModel.setAddress(moocUserT.getAddress());
         // 注意这里需要添加 getTime()，来转换格式
-        userInfoModel.setUpdateTime(moocUserT.getUpdateTime().getTime());
+//        userInfoModel.setUpdateTime(moocUserT.getUpdateTime().getTime());
         userInfoModel.setCreateTime(moocUserT.getBeginTime().getTime());
         return userInfoModel;
     }

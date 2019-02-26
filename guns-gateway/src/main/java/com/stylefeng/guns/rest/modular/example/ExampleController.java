@@ -24,7 +24,7 @@ public class ExampleController {
         // userID -> 作为 Key -> 存储在 Redis， userInfo -> 时效为30分钟
         // 第二次访问会先去 Redis中判断
         // 本项目中直接去数据库中取
-        System.out.println(CurrentUser.getCurrentUser());
+        System.out.println(CurrentUser.getCurrentUserId());
         return ResponseEntity.ok("请求成功!");
     }
 }

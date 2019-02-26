@@ -25,7 +25,7 @@ public class UserController {
      * @param userModel
      * @return
      */
-    @RequestMapping(name = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "register", method = RequestMethod.POST)
     public ResponseVO register(UserModel userModel) {
         // 1. 判断用户名是否为空
         // 1.1 这里使用了 trim() 方法， 作用是删除字符串的首尾空白字符
@@ -52,7 +52,7 @@ public class UserController {
      * @param username
      * @return
      */
-    @RequestMapping(name = "check", method = RequestMethod.POST)
+    @RequestMapping(value = "check", method = RequestMethod.POST)
     public ResponseVO check(String username) {
 
         if (username!= null && username.trim().length() > 0) {
@@ -60,9 +60,9 @@ public class UserController {
             // 根据我们写的 checkUserName 方法，当其返回 true 的时候，表示用户名可以使用
             boolean isExists = userAPI.checkUserName(username);
             if (isExists) {
-                return ResponseVO.success("用户名不存在");
+                return ResponseVO.success("该用户名可以使用！");
             }else {
-                return ResponseVO.serviceFail("用户名不存在");
+                return ResponseVO.serviceFail("用户名已存在！");
             }
 
         }else {
@@ -70,12 +70,11 @@ public class UserController {
         }
     }
 
-
     /**
      * 网关：用户退出
      * @return
      */
-    @RequestMapping(name = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
     public ResponseVO logout() {
 
         /*
@@ -91,17 +90,15 @@ public class UserController {
             此次开发中：
                 1.前端直接删除掉 JWT
          */
-
         //由于退出操作在前端发生，所以我们后端直接返回成功（只要能访问到我们这个服务）
         return ResponseVO.success("用户退出成功");
     }
-
 
     /**
      * 查询用户信息
      * @return
      */
-    @RequestMapping(name = "getUserInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "getUserInfo", method = RequestMethod.GET)
     public ResponseVO getUserInfo() {
         // 1. 获取当前登陆的用户
 
@@ -125,13 +122,17 @@ public class UserController {
      * @param userInfoModel
      * @return
      */
-    @RequestMapping(name = "updateUserInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "updateUserInfo", method = RequestMethod.POST)
     public ResponseVO updateUserInfo(UserInfoModel userInfoModel) {
 
         String userId = CurrentUser.getCurrentUserId();
 
         if (userId != null && userId.trim().length() > 0) {
             int uuid = Integer.parseInt(userId);
+            System.out.println("=====================================");
+            System.out.println("当前用户的uuid = " + uuid);
+            System.out.println("userInfoModel 中的 id" + userInfoModel.getUuid());
+            System.out.println("=====================================");
 
             // 判断当前登陆的 id 和 修改结果的 id 是否相等
             if (uuid != userInfoModel.getUuid()) {
@@ -148,8 +149,4 @@ public class UserController {
             return ResponseVO.serviceFail("用户未登录");
         }
     }
-
-
-
-
 }
