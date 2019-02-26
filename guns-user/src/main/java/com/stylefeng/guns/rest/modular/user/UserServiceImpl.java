@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 
 @Component
-@Service(interfaceClass = UserAPI.class)
+@Service(interfaceClass = UserAPI.class, loadbalance ="roundrobin" )
 public class UserServiceImpl implements UserAPI {
 
 
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserAPI {
         userInfoModel.setAddress(moocUserT.getAddress());
         // 注意这里需要添加 getTime()，来转换格式
 //        userInfoModel.setUpdateTime(moocUserT.getUpdateTime().getTime());
-        userInfoModel.setCreateTime(moocUserT.getBeginTime().getTime());
+        userInfoModel.setCreateTime(moocUserT.getBeginTime());
         return userInfoModel;
     }
 
@@ -161,7 +161,7 @@ public class UserServiceImpl implements UserAPI {
         moocUserT.setHeadUrl(userInfoModel.getHeadAddress());
         moocUserT.setBirthday(userInfoModel.getBirthday());
         moocUserT.setBiography(userInfoModel.getBiography());
-        moocUserT.setBeginTime(time2Date(userInfoModel.getCreateTime()));
+        moocUserT.setBeginTime(userInfoModel.getCreateTime());
         moocUserT.setAddress(userInfoModel.getAddress());
         moocUserT.setEmail(userInfoModel.getEmail());
         moocUserT.setUserPhone(userInfoModel.getPhone());

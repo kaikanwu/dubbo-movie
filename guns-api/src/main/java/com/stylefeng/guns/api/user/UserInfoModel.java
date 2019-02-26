@@ -19,7 +19,7 @@ public class UserInfoModel implements Serializable {
     private String biography;
     private String address;
     private String headAddress;
-    private long createTime;
+    private Date createTime;
     private long updateTime;
 
 
@@ -111,11 +111,11 @@ public class UserInfoModel implements Serializable {
         this.headAddress = headAddress;
     }
 
-    public long getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
