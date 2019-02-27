@@ -31,7 +31,7 @@ spring:
       name: movie-user
   dubbo:
       server: true
-      registry: zookeeper://127.0.0.1:2181
+      registry: zookeeper://192.168.56.1:2181
 #     protocol 配置协议，最常见的就是 dubbo（单、长连接，底层是 TCP 协议）, 其他还有 RMI（多、短连接，TCP 协议），Hessian（多、短连接，HTTP 协议）
 #     Spring Cloud 底层的传输协议是 HTTP
       protocol:

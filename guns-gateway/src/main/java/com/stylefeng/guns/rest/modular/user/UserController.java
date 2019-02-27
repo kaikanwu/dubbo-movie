@@ -16,7 +16,7 @@ public class UserController {
 
 
     // 如果不需要 Dubbo 的启动检查，可以设置@Reference(interfaceClass = UserAPI.class， check = false)
-    @Reference(interfaceClass = UserAPI.class)
+    @Reference(interfaceClass = UserAPI.class, check = false)
     private UserAPI userAPI;
 
 

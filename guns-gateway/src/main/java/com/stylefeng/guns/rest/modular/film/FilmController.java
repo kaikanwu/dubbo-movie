@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FilmController {
 
 
-    @Reference(interfaceClass = FilmServiceApi.class)
+    @Reference(interfaceClass = FilmServiceApi.class, check = false)
     private FilmServiceApi filmServiceApi;
     /**
      * 获取首页信息的接口

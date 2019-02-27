@@ -10,7 +10,7 @@ jwt:
   md5-key: randomKey      #md5加密混淆key
 
 server:
-  port: 8084 #项目端口
+  port: 8085 #项目端口
 
 mybatis-plus:
   mapper-locations: classpath*:com/stylefeng/guns/rest/**/mapping/*.xml
@@ -28,15 +28,15 @@ mybatis-plus:
 
 spring:
   application:
-      name: movie-user
+      name: movie-film
   dubbo:
       server: true
-      registry: zookeeper://127.0.0.1:2181
-#     protocol 配置协议，最常见的就是 dubbo（单、长连接，底层是 TCP 协议）, 其他还有 RMI（多、短连接，TCP 协议），Hessian（多、短连接，HTTP 协议）
-#     Spring Cloud 底层的传输协议是 HTTP
+      registry: zookeeper://192.168.56.1:2181
       protocol:
         name: dubbo
-        port: 20881
+        port: 20882
+        #     protocol 配置协议，最常见的就是 dubbo（单、长连接，底层是 TCP 协议）, 其他还有 RMI（多、短连接，TCP 协议），Hessian（多、短连接，HTTP 协议）
+        #     Spring Cloud 底层的传输协议是 HTTP
 
   datasource:
       url: jdbc:mysql://127.0.0.1:3306/guns_rest?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT%2B8
