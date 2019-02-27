@@ -9,5 +9,5 @@ import java.util.List;
 public class FilmVO implements Serializable {
 
     private int filmNum;
-    private List<FilmInfo> filmInfoList;
+    private List<FilmInfo> filmInfo;
 }

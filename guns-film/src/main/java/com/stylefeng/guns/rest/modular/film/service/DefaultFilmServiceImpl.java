@@ -104,6 +104,7 @@ public class DefaultFilmServiceImpl implements FilmServiceApi {
             filmInfos = getFilmInfos(moocFilms);
             // 实际拥有的电影可能少于要求的数量，所以这里需要取实际的电影数量
             filmVO.setFilmNum(moocFilms.size());
+            filmVO.setFilmInfo(filmInfos);
 
         } else {
             // 1.2 如果不是，则是列表页，同样需要限制内容为热映影片
@@ -139,6 +140,7 @@ public class DefaultFilmServiceImpl implements FilmServiceApi {
             filmInfos = getFilmInfos(moocFilms);
             // 实际拥有的电影可能少于要求的数量，所以这里需要取实际的电影数量
             filmVO.setFilmNum(moocFilms.size());
+            filmVO.setFilmInfo(filmInfos);
 
         } else {
             // 1.2 如果不是，则是列表页，同样需要限制内容为热映影片
