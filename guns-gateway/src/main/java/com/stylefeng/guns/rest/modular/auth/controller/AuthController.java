@@ -30,7 +30,7 @@ public class AuthController {
 
 
 
-    @Reference(interfaceClass = UserAPI.class)
+    @Reference(interfaceClass = UserAPI.class, check = false)
     private UserAPI userAPI;
 
 

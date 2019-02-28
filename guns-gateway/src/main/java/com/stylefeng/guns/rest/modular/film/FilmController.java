@@ -7,11 +7,14 @@ import com.stylefeng.guns.rest.modular.film.vo.FilmIndexVO;
 import com.stylefeng.guns.rest.modular.vo.ResponseVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/film/")
 public class FilmController {
+
+    private static final String IMG_PRE = "http://img.meetingshop.cn/";
 
 
     @Reference(interfaceClass = FilmServiceApi.class, check = false)
@@ -44,9 +47,25 @@ public class FilmController {
 
 
         // 返回获取了数据的 filmIndexVO 对象
-        return ResponseVO.success(filmIndexVO);
+        return ResponseVO.success(IMG_PRE, filmIndexVO);
 
     }
+
+
+    @RequestMapping(value = "getConditionList", method = RequestMethod.GET)
+    public ResponseVO getConditionList(@RequestParam(name = "catId",    required = false, defaultValue = "99") String catId,
+                                       @RequestParam(name = "sourceId", required = false, defaultValue = "99") String sourceId,
+                                       @RequestParam(name = "yearId",   required = false, defaultValue = "99") String yearId) {
+
+        // 1. 类型集合：category
+
+        // 2. 片源集合：source
+
+        // 3. 年代集合：year
+
+        return null;
+    }
+
 
 
 }

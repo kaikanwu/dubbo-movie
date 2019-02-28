@@ -1,10 +1,13 @@
 package com.stylefeng.guns.rest.modular.vo;
 
 
+import lombok.Data;
+
 /**
  *  此类负责登陆、注册功能的返回部分
  * @param <M>
  */
+@Data
 public class ResponseVO<M> {
 
     // 返回的状态码， 0: 成功， 1：失败，999：返回异常
@@ -14,6 +17,8 @@ public class ResponseVO<M> {
     // 返回数据实体
     private M data;
 
+    // 图片前缀
+    private String imgPre;
 
     private ResponseVO() {}
 
@@ -29,6 +34,22 @@ public class ResponseVO<M> {
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(0);
         responseVO.setData(m);
+
+        return responseVO;
+    }
+
+    /**
+     * 带图片前缀的 成功 response
+     * @param imgPre
+     * @param <M>
+     * @return
+     */
+    public static <M> ResponseVO success(String imgPre, M m) {
+
+        ResponseVO responseVO = new ResponseVO();
+        responseVO.setStatus(0);
+        responseVO.setData(m);
+        responseVO.setImgPre(imgPre);
 
         return responseVO;
     }
@@ -80,37 +101,5 @@ public class ResponseVO<M> {
         responseVO.setMsg(msg);
 
         return responseVO;
-    }
-
-
-
-
-
-    /*
-        getter and setter
-     */
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public M getData() {
-        return data;
-    }
-
-    public void setData(M data) {
-        this.data = data;
     }
 }
