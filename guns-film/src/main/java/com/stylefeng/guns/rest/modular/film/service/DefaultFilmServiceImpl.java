@@ -4,14 +4,10 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.stylefeng.guns.api.film.FilmServiceApi;
-import com.stylefeng.guns.api.film.vo.BannerVO;
-import com.stylefeng.guns.api.film.vo.FilmInfo;
-import com.stylefeng.guns.api.film.vo.FilmVO;
+import com.stylefeng.guns.api.film.vo.*;
 import com.stylefeng.guns.core.util.DateUtil;
-import com.stylefeng.guns.rest.common.persistence.dao.MoocBannerTMapper;
-import com.stylefeng.guns.rest.common.persistence.dao.MoocFilmTMapper;
-import com.stylefeng.guns.rest.common.persistence.model.MoocBannerT;
-import com.stylefeng.guns.rest.common.persistence.model.MoocFilmT;
+import com.stylefeng.guns.rest.common.persistence.dao.*;
+import com.stylefeng.guns.rest.common.persistence.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +27,15 @@ public class DefaultFilmServiceImpl implements FilmServiceApi {
     @Autowired
     private MoocFilmTMapper moocFilmTMapper;
 
+
+    @Autowired
+    private MoocCatDictTMapper moocCatDictTMapper;
+
+    @Autowired
+    private MoocSourceDictTMapper moocSourceDictTMapper;
+
+    @Autowired
+    private MoocYearDictTMapper moocYearDictTMapper;
 
     /**
      * 获取到所有的 banners
@@ -219,6 +224,74 @@ public class DefaultFilmServiceImpl implements FilmServiceApi {
         List<FilmInfo> result = getFilmInfos(moocFilms);
 
         return result;
+    }
+
+    /**
+     * 实现 getCats 接口的具体内容
+     * @return
+     */
+    @Override
+    public List<CatVO> getCats() {
+
+        List<CatVO> catVOS = new ArrayList<>();
+        // 1. 查询实体对象 - MoocCatDictT
+        //    参数 null 表示，不需要添加条件，即查询所有结果
+        List<MoocCatDictT> moocCats = moocCatDictTMapper.selectList(null);
+
+        // 2. 将 实体对象 转换为 业务对象 CatVO
+        for (MoocCatDictT moocCat: moocCats) {
+            CatVO catVO = new CatVO();
+            catVO.setCatName(moocCat.getShowName());
+            catVO.setCatId(moocCat.getUuid() + "");
+            // 添加到集合
+            catVOS.add(catVO);
+        }
+
+        return catVOS;
+    }
+
+
+    /**
+     *  实现 getSources 接口的具体内容
+     * @return
+     */
+    @Override
+    public List<SourceVO> getSources() {
+        List<SourceVO> sourceVOS = new ArrayList<>();
+        // 1. 查询得到实体对象 MoocSourceDictT
+        List<MoocSourceDictT> moocSources = moocSourceDictTMapper.selectList(null);
+        // 2. 将数据库中的实体对象转换为 业务层的 VO 对象
+        for (MoocSourceDictT moocSource : moocSources) {
+            SourceVO sourceVO = new SourceVO();
+            sourceVO.setSourceName(moocSource.getShowName());
+            sourceVO.setSourceId(moocSource.getUuid() + "");
+
+            sourceVOS.add(sourceVO);
+        }
+
+        return sourceVOS;
+    }
+
+    /**
+     * 实现 getYears 接口的具体内容
+     * @return
+     */
+    @Override
+    public List<YearVO> getYears() {
+
+        List<YearVO> yearVOS = new ArrayList<>();
+        // 1. 查询实体对象 - MoocYearDictT
+        List<MoocYearDictT> moocYears = moocYearDictTMapper.selectList(null);
+        // 2. 将实体对象转换为我们在业务层使用的VO 对象 ： YearVO
+        for (MoocYearDictT moocYear : moocYears) {
+            YearVO yearVO = new YearVO();
+            yearVO.setYearName(moocYear.getShowName());
+            yearVO.setYearId(moocYear.getUuid() + "");
+
+            yearVOS.add(yearVO);
+        }
+
+        return yearVOS;
     }
 
 
