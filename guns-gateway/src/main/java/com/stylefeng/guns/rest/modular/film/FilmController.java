@@ -8,6 +8,7 @@ import com.stylefeng.guns.api.film.vo.SourceVO;
 import com.stylefeng.guns.api.film.vo.YearVO;
 import com.stylefeng.guns.rest.modular.film.vo.FilmConditionVO;
 import com.stylefeng.guns.rest.modular.film.vo.FilmIndexVO;
+import com.stylefeng.guns.rest.modular.film.vo.FilmRequestVO;
 import com.stylefeng.guns.rest.modular.vo.ResponseVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -184,6 +185,25 @@ public class FilmController {
         filmConditionVO.setYearInfo(yearResult);
 
         return ResponseVO.success(filmConditionVO);
+    }
+
+
+    /**
+     * 影片查询功能
+     * @param filmRequestVO
+     * @return
+     */
+    @RequestMapping(value = "getFilms", method = RequestMethod.GET)
+    public ResponseVO getFilms(FilmRequestVO filmRequestVO) {
+
+        // 1. 根据 showType 判断影片查询类型
+
+        // 2. 根据 sortId 排序
+
+        // 3. 添加各种条件查询
+
+        // 4. 判断当前是第几页
+        return null;
     }
 
 
